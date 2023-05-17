@@ -1,20 +1,22 @@
+*~
+*.bak
+*.swp
+
 __pycache__/
 *.py[cod]
 *$py.class
 
 venv/
+ENV/
 env/
 
+pip-wheel-metadata/
+
+.vscode/
 .idea/
 
 *.log
-*.pot
-*.pyc
-*.swp
-*~
 
-secrets.ini
-secrets.yaml
-
-/.venv
-/.env
+*.pytest_cache/
+test/
+tests/
