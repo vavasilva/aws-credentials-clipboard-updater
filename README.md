@@ -1,92 +1,51 @@
-# AWS Credentials Updater
+```markdown
+# AWS Credentials Clipboard Updater
 
-Este projeto fornece uma ferramenta de linha de comando (CLI) em Python para atualizar o arquivo `.aws/credentials` com base em um JSON copiado para a área de transferência. A ferramenta é útil quando você deseja atualizar rapidamente suas credenciais da AWS sem precisar editar manualmente o arquivo.
-
-## Pré-requisitos
-
-- Python 3.6 ou superior
-- Pip (gerenciador de pacotes do Python)
+O AWS Credentials Clipboard Updater é um utilitário de linha de comando (CLI) para atualizar as credenciais da AWS com base no conteúdo da área de transferência.
 
 ## Instalação
 
-Clone este repositório e instale as dependências necessárias:
+1. Certifique-se de ter o Python instalado no seu sistema.
+2. Clone o repositório do projeto:
 
-```bash
-git clone https://github.com/seu_usuario/aws-credentials-updater.git
-cd aws-credentials-updater
-pip install -r requirements.txt
-```
+   ```shell
+   git clone https://github.com/vavasilva/aws-credentials-clipboard-updater.git
+   ```
 
-## Tornar o CLI global
+3. Navegue até o diretório do projeto:
 
-Para tornar o CLI global e executá-lo em qualquer lugar no terminal, siga os passos abaixo:
+   ```shell
+   cd aws-credentials-clipboard-updater
+   ```
 
-1. Torne o arquivo `awscreds.py` executável:
+4. Instale as dependências necessárias:
 
-```bash
-chmod +x awscreds.py
-```
+   ```shell
+   pip install -r requirements.txt
+   ```
 
-2. Mova o arquivo para um diretório que esteja no seu `PATH`. Um local comum para scripts personalizados é o diretório `~/.local/bin`:
+5. Torne o CLI `awscreds` global executando o seguinte comando:
 
-```bash
-mv awscreds.py ~/.local/bin
-```
-
-Se o diretório `~/.local/bin` não estiver no seu `PATH`, você pode adicioná-lo. Abra o arquivo `~/.bashrc` (ou `~/.zshrc` se estiver usando Zsh) e adicione a seguinte linha:
-
-```bash
-export PATH=$PATH:~/.local/bin
-```
-
-3. Atualize as variáveis de ambiente do seu shell atual:
-
-```bash
-source ~/.bashrc
-```
-
-(ou `source ~/.zshrc` se estiver usando Zsh)
-
-Agora você deve ser capaz de executar o comando `awscreds` de qualquer lugar no seu terminal. Lembre-se de que, para tornar essa configuração permanente, você deve seguir os passos acima para todos os ambientes e usuários nos quais deseja usar o CLI globalmente.
+   ```shell
+   pip install --editable .
+   ```
 
 ## Uso
 
-1. Copie o JSON com as informações das credenciais da AWS para a área de transferência. O JSON deve ter a seguinte estrutura:
+Para usar o CLI `awscreds` e atualizar as credenciais da AWS, execute o seguinte comando:
 
-```json
-{
-    "aws_account": "arn:aws:iam::XXXXXX:role/poweruser",
-    "aws_access_key_id": "88888",
-    "aws_secret_access_key": "99999",
-    "aws_session_token": "999",
-    "aws_session_expiration": "17/05/2023 17:29:13"
-}
-```
-
-2. Execute a ferramenta de linha de comando sem fornecer o perfil:
-
-```bash
+```shell
 awscreds
 ```
 
-Nesse caso, a ferramenta solicitará que você digite o nome do perfil que deseja atualizar.
+Isso irá chamar a função `update_aws_credentials` e exibirá uma mensagem de prompt solicitando que você digite o nome do perfil AWS que deseja atualizar.
 
-3. Execute a ferramenta de linha de comando fornecendo o perfil como argumento:
+Certifique-se de ter o Python corretamente instalado e as dependências satisfeitas para garantir que o CLI funcione corretamente.
 
-```bash
-awscreds --profile <nome_do_perfil>
-```
+## Contribuição
 
-Substitua `<nome_do_perfil>` pelo nome do perfil que deseja atualizar. Isso permite automatizar o processo caso você já saiba qual perfil deseja atualizar.
+Contribuições são bem-vindas! Se você quiser melhorar o projeto, abra um problema ou envie uma solicitação de pull.
 
-A ferramenta atualizará o arquivo `.aws/credentials` com as novas informações do perfil fornecido.
+## Licença
 
-## Limitações
-
-Esta ferramenta foi desenvolvida e testada em ambientes Linux e macOS. Pode funcionar no Windows, mas não foi testada neste sistema operacional.
-
-- O JSON copiado para a área de transferência deve conter todas as chaves necessárias (`aws_access_key_id`, `aws_secret_access_key` e `aws_session_token`), caso contrário, a ferramenta exibirá um erro.
-
-## Contribuições
-
-Contribuições são bem-vindas! Sinta-se à vontade para abrir uma issue ou enviar um pull request para melhorias, correções de bugs ou novos recursos.
+Este projeto está licenciado sob a licença [MIT](LICENSE).

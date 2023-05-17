@@ -20,3 +20,5 @@ pip-wheel-metadata/
 *.pytest_cache/
 test/
 tests/
+
+awscreds.egg-info/
