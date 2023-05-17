@@ -24,7 +24,7 @@ Para tornar o CLI global e executá-lo em qualquer lugar do terminal, siga os pa
 1. Torne o arquivo `awscreds.py` executável:
 
 ```bash
-chmod +x awscreds.py.py
+chmod +x awscreds.py
 ```
 
 3. Mova o arquivo para um diretório que esteja no seu `PATH`. Um local comum para scripts personalizados é o diretório `~/.local/bin`:
