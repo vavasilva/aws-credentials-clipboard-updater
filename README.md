@@ -1,6 +1,6 @@
 # AWS Credentials Updater
 
-Este projeto fornece uma ferramenta de linha de comando (CLI) em Python para atualizar o arquivo .aws/credentials com base em um JSON copiado no clipboard. A ferramenta é útil quando você deseja atualizar rapidamente suas credenciais da AWS sem editar manualmente o arquivo.
+Este projeto fornece uma ferramenta de linha de comando (CLI) em Python para atualizar o arquivo `.aws/credentials` com base em um JSON copiado para a área de transferência. A ferramenta é útil quando você deseja atualizar rapidamente suas credenciais da AWS sem precisar editar manualmente o arquivo.
 
 ## Pré-requisitos
 
@@ -19,7 +19,7 @@ pip install -r requirements.txt
 
 ## Tornar o CLI global
 
-Para tornar o CLI global e executá-lo em qualquer lugar do terminal, siga os passos abaixo:
+Para tornar o CLI global e executá-lo em qualquer lugar no terminal, siga os passos abaixo:
 
 1. Torne o arquivo `awscreds.py` executável:
 
@@ -27,10 +27,10 @@ Para tornar o CLI global e executá-lo em qualquer lugar do terminal, siga os pa
 chmod +x awscreds.py
 ```
 
-3. Mova o arquivo para um diretório que esteja no seu `PATH`. Um local comum para scripts personalizados é o diretório `~/.local/bin`:
+2. Mova o arquivo para um diretório que esteja no seu `PATH`. Um local comum para scripts personalizados é o diretório `~/.local/bin`:
 
 ```bash
-mv awscreds ~/.local/bin
+mv awscreds.py ~/.local/bin
 ```
 
 Se o diretório `~/.local/bin` não estiver no seu `PATH`, você pode adicioná-lo. Abra o arquivo `~/.bashrc` (ou `~/.zshrc` se estiver usando Zsh) e adicione a seguinte linha:
@@ -39,7 +39,7 @@ Se o diretório `~/.local/bin` não estiver no seu `PATH`, você pode adicioná-
 export PATH=$PATH:~/.local/bin
 ```
 
-4. Atualize as variáveis de ambiente do seu shell atual:
+3. Atualize as variáveis de ambiente do seu shell atual:
 
 ```bash
 source ~/.bashrc
@@ -51,7 +51,7 @@ Agora você deve ser capaz de executar o comando `awscreds` de qualquer lugar no
 
 ## Uso
 
-1. Copie o JSON com as informações das credenciais da AWS para o clipboard. O JSON deve ter a seguinte estrutura:
+1. Copie o JSON com as informações das credenciais da AWS para a área de transferência. O JSON deve ter a seguinte estrutura:
 
 ```json
 {
@@ -63,21 +63,24 @@ Agora você deve ser capaz de executar o comando `awscreds` de qualquer lugar no
 }
 ```
 
-2. Execute a ferramenta de linha de comando:
+2. Execute a ferramenta de linha de comando sem fornecer o perfil:
 
 ```bash
 awscreds
 ```
 
-3. Digite o nome do perfil que você deseja atualizar quando solicitado.
+Nesse caso, a ferramenta solicitará que você digite o nome do perfil que deseja atualizar.
 
-A ferramenta atualizará o arquivo .aws/credentials com as novas informações do perfil fornecido.
+3. Execute a ferramenta de linha de comando fornecendo o perfil como argumento:
+
+```bash
+awscreds --profile <nome_do_perfil>
+```
+
+Substitua `<nome_do_perfil>` pelo nome do perfil que deseja atualizar. Isso permite automatizar o processo caso você já saiba qual perfil deseja atualizar.
+
+A ferramenta atualizará o arquivo `.aws/credentials` com as novas informações do perfil fornecido.
 
 ## Limitações
 
-- Esta ferramenta foi desenvolvida e testada em ambientes Linux e macOS. Pode funcionar no Windows, mas não foi testada nesse sistema operacional.
-- O JSON copiado para o clipboard deve conter todas as chaves necessárias (`aws_access_key_id`, `aws_secret_access_key` e `aws_session_token`), caso contrário, a ferramenta mostrará um erro.
-
-## Contribuições
-
-Contribuições são bem-vindas
+- Esta ferramenta foi desenvolvida e testada em ambientes Linux e macOS. Pode funcion
