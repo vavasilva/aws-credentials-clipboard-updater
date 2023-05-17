@@ -45,7 +45,3 @@ Certifique-se de ter o Python corretamente instalado e as dependências satisfei
 ## Contribuição
 
 Contribuições são bem-vindas! Se você quiser melhorar o projeto, abra um problema ou envie uma solicitação de pull.
-
-## Licença
-
-Este projeto está licenciado sob a licença [MIT](LICENSE).
