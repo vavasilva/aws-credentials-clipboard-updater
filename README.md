@@ -83,4 +83,10 @@ A ferramenta atualizará o arquivo `.aws/credentials` com as novas informações
 
 ## Limitações
 
-- Esta ferramenta foi desenvolvida e testada em ambientes Linux e macOS. Pode funcion
+Esta ferramenta foi desenvolvida e testada em ambientes Linux e macOS. Pode funcionar no Windows, mas não foi testada neste sistema operacional.
+
+- O JSON copiado para a área de transferência deve conter todas as chaves necessárias (`aws_access_key_id`, `aws_secret_access_key` e `aws_session_token`), caso contrário, a ferramenta exibirá um erro.
+
+## Contribuições
+
+Contribuições são bem-vindas! Sinta-se à vontade para abrir uma issue ou enviar um pull request para melhorias, correções de bugs ou novos recursos.
