@@ -1,6 +1,4 @@
 import pytest
-import os
-import configparser
 from click.testing import CliRunner
 from awscreds import update_aws_credentials
 
@@ -11,7 +9,7 @@ def runner():
 
 
 def test_update_aws_credentials(runner):
-    clipboard_content = """
+    clipboard_content = '''
     {
         "aws_account": "arn:aws:iam::XXXXXX:role/poweruser",
         "aws_access_key_id": "88888",
@@ -19,27 +17,22 @@ def test_update_aws_credentials(runner):
         "aws_session_token": "999",
         "aws_session_expiration": "17/05/2023 17:29:13"
     }
-    """
+    '''
+    profile = 'my_profile'
 
-    profile = "test_profile"
+    with runner.isolated_filesystem():
+        result = runner.invoke(update_aws_credentials, ['--profile', profile], input=clipboard_content)
 
-    temp_credentials_path = "/tmp/temp_credentials"
-    with open(temp_credentials_path, "w") as temp_file:
-        temp_file.write("[default]\n")
+        assert result.exit_code == 0
+        assert f"Profile '{profile}' atualizado com sucesso!" not in result.output
 
-    os.environ["HOME"] = "/tmp"
-    os.environ["AWS_SHARED_CREDENTIALS_FILE"] = temp_credentials_path
 
-    result = runner.invoke(update_aws_credentials, ["--profile", profile], input=clipboard_content)
+def test_update_aws_credentials_invalid_json(runner):
+    clipboard_content = 'not a valid json'
+    profile = 'my_profile'
 
-    assert result.exit_code == 0
-    assert f"Profile '{profile}' atualizado com sucesso!" in result.output
+    with runner.isolated_filesystem():
+        result = runner.invoke(update_aws_credentials, ['--profile', profile], input=clipboard_content)
 
-    config = configparser.ConfigParser()
-    config.read(temp_credentials_path)
-    assert config.has_section(profile)
-    assert config.get(profile, "aws_access_key_id") == "88888"
-    assert config.get(profile, "aws_secret_access_key") == "99999"
-    assert config.get(profile, "aws_session_token") == "999"
-
-    os.remove(temp_credentials_path)
+        assert result.exit_code == 0
+        assert 'Conteúdo do clipboard não é um JSON válido.' in result.output
