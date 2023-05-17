@@ -21,16 +21,10 @@ pip install -r requirements.txt
 
 Para tornar o CLI global e executá-lo em qualquer lugar do terminal, siga os passos abaixo:
 
-1. Torne o arquivo `aws_credentials_updater.py` executável:
+1. Torne o arquivo `awscreds.py` executável:
 
 ```bash
-chmod +x aws_credentials_updater.py
-```
-
-2. Renomeie o arquivo `aws_credentials_updater.py` para um nome de comando mais amigável, como `awscreds`:
-
-```bash
-mv aws_credentials_updater.py awscreds
+chmod +x awscreds.py.py
 ```
 
 3. Mova o arquivo para um diretório que esteja no seu `PATH`. Um local comum para scripts personalizados é o diretório `~/.local/bin`:
