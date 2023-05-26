@@ -3,6 +3,8 @@ import json
 import configparser
 import os
 
+import pyperclip
+
 
 @click.group()
 def cli():
@@ -12,10 +14,12 @@ def cli():
 @cli.command()
 @click.option('--profile', prompt='Digite o nome do profile que deseja alterar',
               help='Nome do profile AWS que você deseja atualizar.')
-@click.option('--data', prompt='Insira os dados das credenciais em formato JSON',
-              help='Dados das credenciais em formato JSON.')
+@click.option('--data', help='Insira os dados das credenciais em formato JSON.', default=None)
 def update(profile, data):
     try:
+        if not data:
+            data = pyperclip.paste()
+
         credentials = json.loads(data)
 
         aws_credentials_path = os.path.expanduser('~/.aws/credentials')
