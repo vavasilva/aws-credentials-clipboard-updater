@@ -1,7 +1,7 @@
 ```markdown
 # AWS Credentials Clipboard Updater
 
-O AWS Credentials Clipboard Updater é um utilitário de linha de comando (CLI) para atualizar as credenciais da AWS com base no conteúdo da área de transferência.
+O AWS Credentials Clipboard Updater é um utilitário de linha de comando (CLI) para gerenciar as credenciais da AWS. Este utilitário permite que você atualize, liste ou delete os perfis AWS no seu arquivo de credenciais.
 
 ## Instalação
 
@@ -32,13 +32,31 @@ O AWS Credentials Clipboard Updater é um utilitário de linha de comando (CLI) 
 
 ## Uso
 
-Para usar o CLI `awscreds` e atualizar as credenciais da AWS, execute o seguinte comando:
+O CLI `awscreds` fornece as seguintes opções:
 
-```shell
-awscreds
-```
+- Atualizar um perfil AWS:
 
-Isso irá chamar a função `update_aws_credentials` e exibirá uma mensagem de prompt solicitando que você digite o nome do perfil AWS que deseja atualizar.
+  ```shell
+  awscreds update
+  ```
+
+  Ao executar este comando, você será solicitado a digitar o nome do perfil AWS que deseja atualizar e os dados das credenciais em formato JSON.
+
+- Listar todos os perfis AWS existentes:
+
+  ```shell
+  awscreds list
+  ```
+
+  Este comando listará todos os perfis AWS disponíveis no seu arquivo de credenciais.
+
+- Deletar um perfil AWS:
+
+  ```shell
+  awscreds delete
+  ```
+
+  Ao executar este comando, você será solicitado a digitar o nome do perfil AWS que deseja deletar.
 
 Certifique-se de ter o Python corretamente instalado e as dependências satisfeitas para garantir que o CLI funcione corretamente.
 
