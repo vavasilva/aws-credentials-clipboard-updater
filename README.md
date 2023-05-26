@@ -36,11 +36,21 @@ O CLI `awscreds` fornece as seguintes opções:
 
 - Atualizar um perfil AWS:
 
-  ```shell
-  awscreds update
-  ```
+  Agora, você pode usar o comando `update` de duas maneiras:
 
-  Ao executar este comando, você será solicitado a digitar o nome do perfil AWS que deseja atualizar e os dados das credenciais em formato JSON.
+  1. Fornecer dados explicitamente usando a opção `--data`:
+   
+     ```shell
+     awscreds update --profile my_profile --data '{"aws_access_key_id": "123", "aws_secret_access_key": "456", "aws_session_token": "789"}'
+     ```
+     
+  2. Ler dados a partir do clipboard se a opção `--data` não for fornecida:
+   
+     ```shell
+     awscreds update --profile my_profile
+     ```
+  
+  No segundo caso, você deve ter as credenciais corretas no clipboard antes de executar o comando.
 
 - Listar todos os perfis AWS existentes:
 
