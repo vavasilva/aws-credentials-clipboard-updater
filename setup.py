@@ -7,10 +7,10 @@ setup(
     package_dir={'': 'src'},
     install_requires=[
         'click',
-        'pyperclip',
+        'pyperclip'
     ],
     entry_points='''
         [console_scripts]
-        awscreds=awscreds:update_aws_credentials
+        awscreds=awscreds:cli
     '''
 )
