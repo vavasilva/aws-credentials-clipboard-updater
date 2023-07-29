@@ -31,7 +31,9 @@ def update(profile, data):
 
         config.set(profile, 'aws_access_key_id', credentials['aws_access_key_id'])
         config.set(profile, 'aws_secret_access_key', credentials['aws_secret_access_key'])
-        config.set(profile, 'aws_session_token', credentials['aws_session_token'])
+
+        if 'aws_session_token' in credentials:
+            config.set(profile, 'aws_session_token', credentials['aws_session_token'])
 
         with open(aws_credentials_path, 'w') as configfile:
             config.write(configfile)
