@@ -20,7 +20,12 @@ def update(profile, data):
         if not data:
             data = pyperclip.paste()
 
-        credentials = json.loads(data)
+        raw_credentials = json.loads(data)
+
+        if 'Credentials' in raw_credentials:
+            credentials = raw_credentials['Credentials']
+        else:
+            credentials = raw_credentials
 
         aws_credentials_path = os.path.expanduser('~/.aws/credentials')
         config = configparser.ConfigParser()
@@ -29,11 +34,16 @@ def update(profile, data):
         if not config.has_section(profile):
             config.add_section(profile)
 
-        config.set(profile, 'aws_access_key_id', credentials['aws_access_key_id'])
-        config.set(profile, 'aws_secret_access_key', credentials['aws_secret_access_key'])
+        access_key = credentials['AccessKeyId'] if 'AccessKeyId' in credentials else credentials['aws_access_key_id']
+        secret_key = credentials['SecretAccessKey'] if 'SecretAccessKey' in credentials else credentials[
+            'aws_secret_access_key']
+        session_token = credentials.get('SessionToken', credentials.get('aws_session_token'))
 
-        if 'aws_session_token' in credentials:
-            config.set(profile, 'aws_session_token', credentials['aws_session_token'])
+        config.set(profile, 'aws_access_key_id', access_key)
+        config.set(profile, 'aws_secret_access_key', secret_key)
+
+        if session_token:
+            config.set(profile, 'aws_session_token', session_token)
 
         with open(aws_credentials_path, 'w') as configfile:
             config.write(configfile)
@@ -43,7 +53,7 @@ def update(profile, data):
     except json.JSONDecodeError:
         click.echo('Conteúdo do data não é um JSON válido.')
     except KeyError:
-        click.echo('O JSON do data não contém todas as chaves necessárias.')
+        click.echo('O JSON do data não contém todas as chaves necessárias (AccessKeyId ou SecretAccessKey).')
 
 
 @cli.command()
