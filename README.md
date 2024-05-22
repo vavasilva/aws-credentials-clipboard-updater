@@ -1,9 +1,39 @@
+Claro, aqui está o README com o código dentro dos blocos de código:
+
 ```markdown
 # AWS Credentials Clipboard Updater
 
 O AWS Credentials Clipboard Updater é um utilitário de linha de comando (CLI) para gerenciar as credenciais da AWS. Este utilitário permite que você atualize, liste ou delete os perfis AWS no seu arquivo de credenciais.
 
 ## Instalação
+
+### Ubuntu/Debian
+
+1. Certifique-se de ter o Python instalado no seu sistema.
+2. Clone o repositório do projeto:
+
+   git clone https://github.com/vavasilva/aws-credentials-clipboard-updater.git
+```
+
+3. Navegue até o diretório do projeto:
+
+   ```shell
+   cd aws-credentials-clipboard-updater
+   ```
+
+4. Instale as dependências necessárias:
+
+   ```shell
+   pip install -r requirements.txt
+   ```
+
+5. Torne o CLI `awscreds` global executando o seguinte comando:
+
+   ```shell
+   pip install --editable .
+   ```
+
+### Arch Linux
 
 1. Certifique-se de ter o Python instalado no seu sistema.
 2. Clone o repositório do projeto:
@@ -29,6 +59,25 @@ O AWS Credentials Clipboard Updater é um utilitário de linha de comando (CLI) 
    ```shell
    pip install --editable .
    ```
+
+### Dependências para Clipboard
+
+Para garantir que as dependências específicas para manipulação de clipboard funcionem:
+
+* No Arch Linux:
+    ```
+    sudo pacman -S xclip xsel
+    ```
+
+* Em distribuições baseadas no Debian/Ubuntu:
+    ```
+    sudo apt-get install xclip xsel
+    ```
+
+* Em distribuições baseadas no Red Hat/Fedora:
+    ```
+    sudo dnf install xclip xsel
+    ```
 
 ## Uso
 

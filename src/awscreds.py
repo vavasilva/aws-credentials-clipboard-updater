@@ -2,7 +2,6 @@ import click
 import json
 import configparser
 import os
-
 import pyperclip
 
 
