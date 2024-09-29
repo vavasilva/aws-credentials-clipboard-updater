@@ -22,3 +22,5 @@ test/
 tests/
 
 awscreds.egg-info/
+
+.python-version
