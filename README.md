@@ -1,6 +1,6 @@
 # AWS Credentials Clipboard Updater
 
-O AWS Credentials Clipboard Updater é um utilitário de linha de comando (CLI) para gerenciar as credenciais da AWS. Ele permite atualizar, listar ou deletar perfis no seu arquivo de credenciais AWS de maneira prática e intuitiva!
+O AWS Credentials Clipboard Updater é um utilitário de linha de comando (CLI) para gerenciar as credenciais da AWS. Ele permite atualizar, listar ou deletar perfis no seu arquivo de credenciais AWS de maneira prática e intuitiva
 
 ## Instalação
 
