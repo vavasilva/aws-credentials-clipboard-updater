@@ -126,4 +126,3 @@ Depois disso, todos os comandos `awscreds` estarão disponíveis enquanto o ambi
 ## Contribuição
 
 Contribuições são bem-vindas! Se você deseja melhorar o projeto, abra um problema ou envie uma solicitação de pull no [repositório do GitHub](https://github.com/vavasilva/aws-credentials-clipboard-updater).
-
