@@ -1,13 +1,29 @@
 # AWS Credentials Clipboard Updater
 
-O AWS Credentials Clipboard Updater é um utilitário de linha de comando (CLI) para gerenciar as credenciais da AWS. Ele permite atualizar, listar ou deletar perfis no seu arquivo de credenciais AWS de maneira prática e intuitiva
+O AWS Credentials Clipboard Updater é um utilitário de linha de comando (CLI) para gerenciar as credenciais da AWS. Ele permite atualizar, listar ou deletar perfis no seu arquivo de credenciais AWS de maneira prática e intuitiva.
 
 ## Instalação
 
 ### Pré-requisitos
-Certifique-se de que você tem o Python 3.7 ou superior instalado no seu sistema. Recomendamos o uso de ambientes virtuais para isolar as dependências do projeto. Se você estiver usando ferramentas como `virtualenv`, `pyenv-virtualenv` ou `venv`, siga as instruções abaixo.
+- Python 3.7 ou superior
+- pip (gerenciador de pacotes Python)
+- Para funcionalidades de clipboard: dependências específicas por sistema operacional (ver abaixo)
 
-### Passo a passo para instalação
+### Instalação Global
+
+Para instalar o AWS Credentials Clipboard Updater globalmente no seu sistema, execute:
+
+```shell
+pip install git+https://github.com/vavasilva/aws-credentials-clipboard-updater.git
+```
+
+Após a instalação, o comando `awscreds` estará disponível em qualquer diretório do seu sistema.
+
+> **Nota**: Em alguns sistemas, pode ser necessário usar `pip3` em vez de `pip` ou adicionar a flag `--user` para instalação sem privilégios de administrador (`pip install --user git+https://github.com/vavasilva/aws-credentials-clipboard-updater.git`).
+
+### Instalação para Desenvolvimento
+
+Se você deseja contribuir para o projeto ou fazer modificações no código, siga estas etapas:
 
 #### 1. Clone o repositório do projeto:
 ```shell
@@ -25,7 +41,7 @@ Se você deseja utilizar um ambiente virtual para gerenciar as dependências do 
 ##### Utilizando `virtualenv`:
 ```shell
 python -m venv venv
-source venv/bin/activate
+source venv/bin/activate  # No Windows: venv\Scripts\activate
 ```
 
 ##### Utilizando `pyenv` com `pyenv-virtualenv`:
@@ -34,40 +50,36 @@ pyenv virtualenv 3.12.0 aws-credentials-clipboard-updater
 pyenv activate aws-credentials-clipboard-updater
 ```
 
-#### 4. Instale as dependências:
-Após ativar o ambiente virtual (se aplicável), instale as dependências listadas no arquivo `requirements.txt`:
+#### 4. Instale o projeto em modo desenvolvimento:
+Instale o projeto no modo editável para que suas alterações sejam refletidas imediatamente:
 
 ```shell
-pip install -r requirements.txt
+pip install -e .
 ```
-
-#### 5. Instale o projeto em modo editável:
-Instale o projeto no modo editável para que o comando `awscreds` seja reconhecido globalmente dentro do ambiente virtual:
-
-```shell
-pip install --editable .
-```
-
-> **Nota**: Se você não estiver usando um ambiente virtual, pode ser necessário usar `pip install --user --editable .` para evitar permissões de sistema.
 
 ### Dependências para Clipboard
 
-Para garantir que as dependências específicas para manipulação de clipboard funcionem corretamente, você pode precisar instalar pacotes adicionais de acordo com o seu sistema operacional:
+Para garantir que as funcionalidades de clipboard funcionem corretamente, você pode precisar instalar pacotes adicionais de acordo com o seu sistema operacional:
 
-- **Arch Linux**:
-  ```shell
-  sudo pacman -S xclip xsel
-  ```
-  
-- **Debian/Ubuntu**:
-  ```shell
-  sudo apt-get install xclip xsel
-  ```
+- **macOS**: Não requer pacotes adicionais
 
-- **Red Hat/Fedora**:
-  ```shell
-  sudo dnf install xclip xsel
-  ```
+- **Windows**: Não requer pacotes adicionais
+
+- **Linux**:
+  - **Arch Linux**:
+    ```shell
+    sudo pacman -S xclip xsel
+    ```
+    
+  - **Debian/Ubuntu**:
+    ```shell
+    sudo apt-get install xclip xsel
+    ```
+
+  - **Red Hat/Fedora**:
+    ```shell
+    sudo dnf install xclip xsel
+    ```
 
 ## Uso
 
