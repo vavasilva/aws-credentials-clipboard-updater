@@ -11,6 +11,12 @@ brew tap vavasilva/tap
 brew install aws-credentials-clipboard-updater
 ```
 
+### pip (Global)
+
+```shell
+pip install git+https://github.com/vavasilva/aws-credentials-clipboard-updater.git
+```
+
 ### From Source
 
 #### Prerequisites
