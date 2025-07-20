@@ -5,7 +5,6 @@ import os
 import pyperclip
 
 
-
 @click.group()
 def cli():
     pass
@@ -87,6 +86,7 @@ def delete(profile):
 
 def main():
     cli()
+
 
 if __name__ == '__main__':
     main()
