@@ -1,0 +1,110 @@
+Metadata-Version: 2.4
+Name: aws-credentials-clipboard-updater
+Version: 1.0.5
+Summary: A command-line utility to manage AWS credentials from clipboard or data
+Author-email: Wagner Silva <vavasilva@users.noreply.github.com>
+Project-URL: Homepage, https://github.com/vavasilva/aws-credentials-clipboard-updater
+Project-URL: Repository, https://github.com/vavasilva/aws-credentials-clipboard-updater
+Project-URL: Issues, https://github.com/vavasilva/aws-credentials-clipboard-updater/issues
+Keywords: aws,credentials,clipboard,cli,devops
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: System :: Systems Administration
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: click
+Requires-Dist: pyperclip
+Dynamic: license-file
+
+# AWS Credentials Clipboard Updater
+
+A command-line utility to manage AWS credentials. Update, list, or delete profiles in your AWS credentials file efficiently.
+
+## Installation
+
+### Homebrew (macOS/Linux)
+
+```shell
+brew tap vavasilva/tap
+brew install aws-credentials-clipboard-updater
+```
+
+### pip (Global)
+
+```shell
+pip install git+https://github.com/vavasilva/aws-credentials-clipboard-updater.git
+```
+
+### From Source
+
+#### Prerequisites
+- Python 3.7 or higher
+- Virtual environment recommended
+
+#### Steps
+
+1. Clone the repository:
+```shell
+git clone https://github.com/vavasilva/aws-credentials-clipboard-updater.git
+cd aws-credentials-clipboard-updater
+```
+
+2. Install:
+```shell
+pip install -e .
+```
+
+### System Dependencies
+
+For clipboard functionality on Linux systems:
+
+- **Debian/Ubuntu**: `sudo apt-get install xclip xsel`
+- **Fedora**: `sudo dnf install xclip xsel`
+- **Arch**: `sudo pacman -S xclip xsel`
+
+## Usage
+
+### Update AWS Profile
+
+Update a profile with explicit data:
+
+```shell
+awscreds update --profile my_profile --data '{"aws_access_key_id": "123", "aws_secret_access_key": "456", "aws_session_token": "789"}'
+```
+
+Or read from clipboard:
+
+```shell
+awscreds update --profile my_profile
+```
+
+### List Profiles
+
+List all configured profiles:
+
+```shell
+awscreds list
+```
+
+### Delete Profile
+
+Delete a specific profile:
+
+```shell
+awscreds delete
+```
+
+## Contributing
+
+Contributions welcome! Please open an issue or submit a pull request on [GitHub](https://github.com/vavasilva/aws-credentials-clipboard-updater).
