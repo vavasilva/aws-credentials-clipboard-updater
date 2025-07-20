@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='awscreds',
-    version='1.0.1',
+    version='1.0.2',
     packages=find_packages('src'),
     package_dir={'': 'src'},
     install_requires=[
@@ -11,7 +11,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'awscreds=awscreds.cli:main',
+            'awscreds=awscreds:main',
         ],
     }
 )

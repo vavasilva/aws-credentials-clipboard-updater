@@ -3,8 +3,8 @@ class AwsCredentialsClipboardUpdater < Formula
 
   desc "CLI tool to manage AWS credentials from clipboard or data"
   homepage "https://github.com/vavasilva/aws-credentials-clipboard-updater"
-  url "https://github.com/vavasilva/aws-credentials-clipboard-updater/archive/v1.0.1.tar.gz"
-  sha256 "fe721211ccdca69c55c2ce28836c503e2fdb8946583ed7e88472f205cb0a3dfa"
+  url "https://github.com/vavasilva/aws-credentials-clipboard-updater/archive/v1.0.2.tar.gz"
+  sha256 "0da7b2942fc429f29f52e09811e8f44ade19572bbd7adf3eebeb034b2c3b25b5"
   license "MIT"
 
   depends_on "python@3.12"
