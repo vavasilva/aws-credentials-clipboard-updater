@@ -1,0 +1,13 @@
+LICENSE
+README.md
+pyproject.toml
+setup.py
+src/aws_credentials_clipboard_updater.egg-info/PKG-INFO
+src/aws_credentials_clipboard_updater.egg-info/SOURCES.txt
+src/aws_credentials_clipboard_updater.egg-info/dependency_links.txt
+src/aws_credentials_clipboard_updater.egg-info/entry_points.txt
+src/aws_credentials_clipboard_updater.egg-info/requires.txt
+src/aws_credentials_clipboard_updater.egg-info/top_level.txt
+src/awscreds/__init__.py
+src/awscreds/cli.py
+test/test_awscreds.py
