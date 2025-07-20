@@ -7,7 +7,7 @@ class AwsCredentialsClipboardUpdater < Formula
   sha256 "0f9dcef211c18f5770562a5996a0216d5bf6ac4ea39fc323b868cc2ae1b3bc93"
   license "MIT"
 
-  depends_on "python@3.12"
+  depends_on "python@3"
 
   resource "click" do
     url "https://files.pythonhosted.org/packages/96/d3/f04c7bfcf5c1862a2a5b845c6b2b360488cf47af55dfa79c98f6a6bf98b5/click-8.1.7.tar.gz"
