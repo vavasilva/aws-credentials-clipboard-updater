@@ -1,0 +1,47 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aws-credentials-clipboard-updater"
+version = "1.0.5"
+description = "A command-line utility to manage AWS credentials from clipboard or data"
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: System :: Systems Administration",
+]
+keywords = ["aws", "credentials", "clipboard", "cli", "devops"]
+authors = [
+    {name = "Wagner Silva", email = "vavasilva@users.noreply.github.com"}
+]
+dependencies = [
+    "click",
+    "pyperclip",
+]
+
+[project.urls]
+Homepage = "https://github.com/vavasilva/aws-credentials-clipboard-updater"
+Repository = "https://github.com/vavasilva/aws-credentials-clipboard-updater"
+Issues = "https://github.com/vavasilva/aws-credentials-clipboard-updater/issues"
+
+[project.scripts]
+awscreds = "awscreds:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-dir]
+"" = "src"
