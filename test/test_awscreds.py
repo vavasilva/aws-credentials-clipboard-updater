@@ -60,11 +60,38 @@ def test_delete_aws_credential(runner):
 
 
 def test_update_aws_credentials_invalid_json(runner):
-    clipboard_content = 'not a valid json'
+    clipboard_content = 'not a valid json or ini'
     profile = 'my_profile'
 
     with runner.isolated_filesystem():
         result = runner.invoke(update, ['--profile', profile, '--data', clipboard_content])
 
         assert result.exit_code == 0
-        assert 'Conteúdo do data não é um JSON válido.' in result.output
+        assert 'Conteúdo do data não é um JSON ou INI válido.' in result.output
+
+
+def test_update_aws_credentials_ini_format(runner):
+    ini_content = '''[994528329112_poweruser]
+aws_access_key_id=AKIAIOSFODNN7EXAMPLE
+aws_secret_access_key=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+aws_session_token=FwoGZXIvYXdzEBYaDH'''
+    profile = 'test_ini_profile'
+
+    with runner.isolated_filesystem():
+        result = runner.invoke(update, ['--profile', profile, '--data', ini_content])
+
+        assert result.exit_code == 0
+        assert f"Profile '{profile}' atualizado com sucesso!" in result.output
+
+
+def test_update_aws_credentials_ini_format_without_token(runner):
+    ini_content = '''[my_profile]
+aws_access_key_id=AKIAIOSFODNN7EXAMPLE
+aws_secret_access_key=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY'''
+    profile = 'test_ini_no_token'
+
+    with runner.isolated_filesystem():
+        result = runner.invoke(update, ['--profile', profile, '--data', ini_content])
+
+        assert result.exit_code == 0
+        assert f"Profile '{profile}' atualizado com sucesso!" in result.output

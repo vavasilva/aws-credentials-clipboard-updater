@@ -2,7 +2,23 @@ import click
 import json
 import configparser
 import os
+import io
 import pyperclip
+
+
+def parse_ini_credentials(data):
+    """Parse credentials from INI format string."""
+    config = configparser.ConfigParser()
+    config.read_string(data)
+    sections = config.sections()
+    if not sections:
+        raise ValueError("No sections found in INI data")
+    section = sections[0]
+    return {
+        'aws_access_key_id': config.get(section, 'aws_access_key_id'),
+        'aws_secret_access_key': config.get(section, 'aws_secret_access_key'),
+        'aws_session_token': config.get(section, 'aws_session_token', fallback=None)
+    }
 
 
 @click.group()
@@ -13,18 +29,28 @@ def cli():
 @cli.command()
 @click.option('--profile', prompt='Digite o nome do profile que deseja alterar',
               help='Nome do profile AWS que você deseja atualizar.')
-@click.option('--data', help='Insira os dados das credenciais em formato JSON.', default=None)
+@click.option('--data', help='Insira os dados das credenciais em formato JSON ou INI.', default=None)
 def update(profile, data):
     try:
         if not data:
             data = pyperclip.paste()
 
-        raw_credentials = json.loads(data)
+        credentials = None
 
-        if 'Credentials' in raw_credentials:
-            credentials = raw_credentials['Credentials']
-        else:
-            credentials = raw_credentials
+        # Try JSON format first
+        try:
+            raw_credentials = json.loads(data)
+            if 'Credentials' in raw_credentials:
+                credentials = raw_credentials['Credentials']
+            else:
+                credentials = raw_credentials
+        except json.JSONDecodeError:
+            # Try INI format
+            try:
+                credentials = parse_ini_credentials(data)
+            except (configparser.Error, ValueError, KeyError):
+                click.echo('Conteúdo do data não é um JSON ou INI válido.')
+                return
 
         aws_credentials_path = os.path.expanduser('~/.aws/credentials')
         config = configparser.ConfigParser()
@@ -33,10 +59,13 @@ def update(profile, data):
         if not config.has_section(profile):
             config.add_section(profile)
 
-        access_key = credentials['AccessKeyId'] if 'AccessKeyId' in credentials else credentials['aws_access_key_id']
-        secret_key = credentials['SecretAccessKey'] if 'SecretAccessKey' in credentials else credentials[
-            'aws_secret_access_key']
-        session_token = credentials.get('SessionToken', credentials.get('aws_session_token'))
+        access_key = credentials.get('AccessKeyId') or credentials.get('aws_access_key_id')
+        secret_key = credentials.get('SecretAccessKey') or credentials.get('aws_secret_access_key')
+        session_token = credentials.get('SessionToken') or credentials.get('aws_session_token')
+
+        if not access_key or not secret_key:
+            click.echo('O data não contém todas as chaves necessárias (AccessKeyId/aws_access_key_id ou SecretAccessKey/aws_secret_access_key).')
+            return
 
         config.set(profile, 'aws_access_key_id', access_key)
         config.set(profile, 'aws_secret_access_key', secret_key)
@@ -49,10 +78,8 @@ def update(profile, data):
 
         click.echo(f"Profile '{profile}' atualizado com sucesso!")
 
-    except json.JSONDecodeError:
-        click.echo('Conteúdo do data não é um JSON válido.')
     except KeyError:
-        click.echo('O JSON do data não contém todas as chaves necessárias (AccessKeyId ou SecretAccessKey).')
+        click.echo('O data não contém todas as chaves necessárias (AccessKeyId/aws_access_key_id ou SecretAccessKey/aws_secret_access_key).')
 
 
 @cli.command()
