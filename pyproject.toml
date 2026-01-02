@@ -1,6 +1,6 @@
 [build-system]
-requires = ["setuptools>=61.0", "wheel"]
-build-backend = "setuptools.build_meta"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 [project]
 name = "aws-credentials-clipboard-updater"
@@ -29,7 +29,6 @@ authors = [
 ]
 dependencies = [
     "click",
-    "pyperclip",
 ]
 
 [project.urls]
@@ -40,8 +39,8 @@ Issues = "https://github.com/vavasilva/aws-credentials-clipboard-updater/issues"
 [project.scripts]
 awscreds = "awscreds:main"
 
-[tool.setuptools.packages.find]
-where = ["src"]
+[tool.hatch.build.targets.wheel]
+packages = ["src/awscreds"]
 
-[tool.setuptools.package-dir]
-"" = "src"
+[tool.hatch.build.targets.sdist]
+include = ["src/awscreds"]
