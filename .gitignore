@@ -24,3 +24,5 @@ tests/
 awscreds.egg-info/
 
 .python-version
+
+.serena/
