@@ -2,8 +2,46 @@ import click
 import json
 import configparser
 import os
-import io
-import pyperclip
+import subprocess
+import platform
+
+
+def get_clipboard():
+    """Get clipboard content using native OS commands."""
+    system = platform.system()
+
+    if system == 'Darwin':  # macOS
+        result = subprocess.run(['pbpaste'], capture_output=True, text=True)
+        return result.stdout
+    elif system == 'Linux':
+        # Try xclip first, then xsel
+        try:
+            result = subprocess.run(
+                ['xclip', '-selection', 'clipboard', '-o'],
+                capture_output=True, text=True
+            )
+            if result.returncode == 0:
+                return result.stdout
+        except FileNotFoundError:
+            pass
+        try:
+            result = subprocess.run(
+                ['xsel', '--clipboard', '--output'],
+                capture_output=True, text=True
+            )
+            if result.returncode == 0:
+                return result.stdout
+        except FileNotFoundError:
+            pass
+        raise RuntimeError('xclip or xsel required on Linux. Install with: sudo apt install xclip')
+    elif system == 'Windows':
+        result = subprocess.run(
+            ['powershell', '-command', 'Get-Clipboard'],
+            capture_output=True, text=True
+        )
+        return result.stdout
+    else:
+        raise RuntimeError(f'Unsupported OS: {system}')
 
 
 def parse_ini_credentials(data):
@@ -33,7 +71,7 @@ def cli():
 def update(profile, data):
     try:
         if not data:
-            data = pyperclip.paste()
+            data = get_clipboard()
 
         credentials = None
 
