@@ -4,6 +4,7 @@ import configparser
 import os
 import subprocess
 import platform
+import sys
 
 
 def get_clipboard():
@@ -65,13 +66,17 @@ def cli():
 
 
 @cli.command()
-@click.option('--profile', prompt='Digite o nome do profile que deseja alterar',
-              help='Nome do profile AWS que você deseja atualizar.')
-@click.option('--data', help='Insira os dados das credenciais em formato JSON ou INI.', default=None)
+@click.option('--profile', prompt='Enter the profile name to update',
+              help='Name of the AWS profile you want to update.')
+@click.option('--data', help='Credentials data in JSON or INI format.', default=None)
 def update(profile, data):
     try:
         if not data:
-            data = get_clipboard()
+            try:
+                data = get_clipboard()
+            except RuntimeError as e:
+                click.echo(f'Error reading clipboard: {e}')
+                sys.exit(1)
 
         credentials = None
 
@@ -87,8 +92,8 @@ def update(profile, data):
             try:
                 credentials = parse_ini_credentials(data)
             except (configparser.Error, ValueError, KeyError):
-                click.echo('Conteúdo do data não é um JSON ou INI válido.')
-                return
+                click.echo('Invalid JSON or INI format.')
+                sys.exit(1)
 
         aws_credentials_path = os.path.expanduser('~/.aws/credentials')
         config = configparser.ConfigParser()
@@ -102,8 +107,8 @@ def update(profile, data):
         session_token = credentials.get('SessionToken') or credentials.get('aws_session_token')
 
         if not access_key or not secret_key:
-            click.echo('O data não contém todas as chaves necessárias (AccessKeyId/aws_access_key_id ou SecretAccessKey/aws_secret_access_key).')
-            return
+            click.echo('Missing required keys (AccessKeyId/aws_access_key_id or SecretAccessKey/aws_secret_access_key).')
+            sys.exit(1)
 
         config.set(profile, 'aws_access_key_id', access_key)
         config.set(profile, 'aws_secret_access_key', secret_key)
@@ -114,10 +119,11 @@ def update(profile, data):
         with open(aws_credentials_path, 'w') as configfile:
             config.write(configfile)
 
-        click.echo(f"Profile '{profile}' atualizado com sucesso!")
+        click.echo(f"Profile '{profile}' updated successfully!")
 
     except KeyError:
-        click.echo('O data não contém todas as chaves necessárias (AccessKeyId/aws_access_key_id ou SecretAccessKey/aws_secret_access_key).')
+        click.echo('Missing required keys (AccessKeyId/aws_access_key_id or SecretAccessKey/aws_secret_access_key).')
+        sys.exit(1)
 
 
 @cli.command()
@@ -127,14 +133,14 @@ def list():
     config.read(aws_credentials_path)
 
     profiles = config.sections()
-    click.echo("Profiles existentes:")
+    click.echo("Existing profiles:")
     for profile in profiles:
         click.echo(profile)
 
 
 @cli.command()
-@click.option('--profile', prompt='Digite o nome do profile que deseja deletar',
-              help='Nome do profile AWS que você deseja deletar.')
+@click.option('--profile', prompt='Enter the profile name to delete',
+              help='Name of the AWS profile you want to delete.')
 def delete(profile):
     aws_credentials_path = os.path.expanduser('~/.aws/credentials')
     config = configparser.ConfigParser()
@@ -144,9 +150,10 @@ def delete(profile):
         config.remove_section(profile)
         with open(aws_credentials_path, 'w') as configfile:
             config.write(configfile)
-        click.echo(f"Profile '{profile}' deletado com sucesso!")
+        click.echo(f"Profile '{profile}' deleted successfully!")
     else:
-        click.echo(f"Profile '{profile}' não encontrado.")
+        click.echo(f"Profile '{profile}' not found.")
+        sys.exit(1)
 
 
 def main():
