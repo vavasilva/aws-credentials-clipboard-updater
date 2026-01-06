@@ -11,10 +11,10 @@ brew tap vavasilva/tap
 brew install aws-credentials-clipboard-updater
 ```
 
-### pip (Global)
+### pip (All Platforms)
 
 ```shell
-pip install git+https://github.com/vavasilva/aws-credentials-clipboard-updater.git
+pip install aws-credentials-clipboard-updater
 ```
 
 ### From Source
@@ -43,6 +43,20 @@ For clipboard functionality on Linux systems:
 - **Debian/Ubuntu**: `sudo apt-get install xclip xsel`
 - **Fedora**: `sudo dnf install xclip xsel`
 - **Arch**: `sudo pacman -S xclip xsel`
+
+## Updating
+
+### pip
+
+```shell
+pip install --upgrade aws-credentials-clipboard-updater
+```
+
+### Homebrew
+
+```shell
+brew upgrade aws-credentials-clipboard-updater
+```
 
 ## Supported Formats
 
