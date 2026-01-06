@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS Credentials Clipboard Updater - Manage AWS credentials from your clipboard</title>
+    <meta name="description" content="A CLI tool to manage AWS credentials profiles. Update, list, or delete profiles from clipboard data.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Scan line overlay for CRT effect -->
+    <div class="scanlines"></div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <div class="badge-row">
+                    <a href="https://pypi.org/project/aws-credentials-clipboard-updater/" class="badge">
+                        <span class="badge-label">PyPI</span>
+                        <span class="badge-value">v1.0.7</span>
+                    </a>
+                    <span class="badge">
+                        <span class="badge-label">Python</span>
+                        <span class="badge-value">3.7+</span>
+                    </span>
+                    <span class="badge">
+                        <span class="badge-label">License</span>
+                        <span class="badge-value">MIT</span>
+                    </span>
+                </div>
+
+                <h1 class="hero-title">
+                    <span class="title-accent">AWS</span> Credentials<br>
+                    <span class="title-highlight">Clipboard Updater</span>
+                </h1>
+
+                <p class="hero-tagline">Manage AWS credentials from your clipboard</p>
+
+                <div class="cta-buttons">
+                    <a href="#installation" class="btn btn-primary">
+                        <span class="btn-icon">$</span>
+                        Get Started
+                    </a>
+                    <a href="https://github.com/vavasilva/aws-credentials-clipboard-updater" class="btn btn-secondary" target="_blank" rel="noopener">
+                        <svg class="github-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                        </svg>
+                        View on GitHub
+                    </a>
+                </div>
+            </div>
+
+            <div class="hero-terminal">
+                <div class="terminal-window">
+                    <div class="terminal-header">
+                        <div class="terminal-buttons">
+                            <span class="terminal-btn close"></span>
+                            <span class="terminal-btn minimize"></span>
+                            <span class="terminal-btn maximize"></span>
+                        </div>
+                        <span class="terminal-title">awscreds</span>
+                    </div>
+                    <div class="terminal-body">
+                        <div class="terminal-line">
+                            <span class="prompt">$</span>
+                            <span class="command typing" id="typed-command">awscreds update --profile dev</span>
+                            <span class="cursor"></span>
+                        </div>
+                        <div class="terminal-output" id="terminal-output">
+                            <span class="success">✓</span> Profile 'dev' updated successfully
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-glow"></div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title">Features</h2>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            <polyline points="14 2 14 8 20 8"/>
+                            <line x1="16" y1="13" x2="8" y2="13"/>
+                            <line x1="16" y1="17" x2="8" y2="17"/>
+                        </svg>
+                    </div>
+                    <h3>Multi-Format Support</h3>
+                    <p>JSON, INI, and AWS STS response formats auto-detected</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                            <line x1="8" y1="21" x2="16" y2="21"/>
+                            <line x1="12" y1="17" x2="12" y2="21"/>
+                        </svg>
+                    </div>
+                    <h3>Cross-Platform</h3>
+                    <p>Works on macOS, Linux, and Windows</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+                            <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
+                        </svg>
+                    </div>
+                    <h3>Clipboard Integration</h3>
+                    <p>Copy credentials, run command — done</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="4 17 10 11 4 5"/>
+                            <line x1="12" y1="19" x2="20" y2="19"/>
+                        </svg>
+                    </div>
+                    <h3>Simple CLI</h3>
+                    <p>Intuitive commands: update, list, delete</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                        </svg>
+                    </div>
+                    <h3>Profile Management</h3>
+                    <p>Manage multiple AWS profiles effortlessly</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Installation Section -->
+    <section class="installation" id="installation">
+        <div class="container">
+            <h2 class="section-title">Installation</h2>
+
+            <div class="install-options">
+                <div class="install-card">
+                    <div class="install-header">
+                        <span class="install-icon">📦</span>
+                        <h3>pip</h3>
+                        <span class="install-tag recommended">Recommended</span>
+                    </div>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                            </svg>
+                        </button>
+                        <pre><code><span class="prompt">$</span> pip install aws-credentials-clipboard-updater</code></pre>
+                    </div>
+                </div>
+
+                <div class="install-card">
+                    <div class="install-header">
+                        <span class="install-icon">🍺</span>
+                        <h3>Homebrew</h3>
+                        <span class="install-tag">macOS/Linux</span>
+                    </div>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                            </svg>
+                        </button>
+                        <pre><code><span class="prompt">$</span> brew tap vavasilva/tap
+<span class="prompt">$</span> brew install aws-credentials-clipboard-updater</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Usage Section -->
+    <section class="usage" id="usage">
+        <div class="container">
+            <h2 class="section-title">Usage</h2>
+
+            <div class="usage-examples">
+                <div class="usage-card">
+                    <h4>Update profile from clipboard</h4>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                            </svg>
+                        </button>
+                        <pre><code><span class="prompt">$</span> awscreds update --profile dev</code></pre>
+                    </div>
+                </div>
+
+                <div class="usage-card">
+                    <h4>List all profiles</h4>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                            </svg>
+                        </button>
+                        <pre><code><span class="prompt">$</span> awscreds list</code></pre>
+                    </div>
+                </div>
+
+                <div class="usage-card">
+                    <h4>Delete a profile</h4>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                            </svg>
+                        </button>
+                        <pre><code><span class="prompt">$</span> awscreds delete --profile old-profile</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="footer-logo">awscreds</span>
+                    <p>MIT License &copy; 2024 Wagner Silva</p>
+                </div>
+
+                <div class="footer-links">
+                    <a href="https://github.com/vavasilva/aws-credentials-clipboard-updater" target="_blank" rel="noopener">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                        </svg>
+                        GitHub
+                    </a>
+                    <a href="https://pypi.org/project/aws-credentials-clipboard-updater/" target="_blank" rel="noopener">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M23.922 11.728l-.003-.008-4.587-4.587a.668.668 0 00-.473-.196h-2.747V3.39a.668.668 0 00-.196-.473L11.329.196a.668.668 0 00-.473-.196H.668A.668.668 0 000 .668v10.188c0 .177.07.347.196.473l4.587 4.587a.668.668 0 00.473.196h2.747v3.547c0 .177.07.347.196.473l4.587 4.587a.668.668 0 00.473.196h10.188a.668.668 0 00.668-.668V12.059a.668.668 0 00-.196-.33zM7.391 14.113H5.462L1.336 9.987V1.336h8.651l4.126 4.126v1.929l-3.725-3.725a.668.668 0 00-.473-.196H.668A.668.668 0 000 4v10.188c0 .177.07.347.196.473l3.725 3.725H1.336v-2.065l-1.14 1.14v1.593a.668.668 0 00.668.668h6.527v-5.609zm15.274 8.551h-8.651l-4.126-4.126v-8.651l4.126 4.126v8.651h8.651v-8.651l-4.126-4.126h-8.651v-4.126l4.126 4.126h8.651v8.651l-4.126 4.126z"/>
+                        </svg>
+                        PyPI
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Typing animation for hero terminal
+        document.addEventListener('DOMContentLoaded', () => {
+            const commands = [
+                { cmd: 'awscreds update --profile dev', output: '<span class="success">✓</span> Profile \'dev\' updated successfully' },
+                { cmd: 'awscreds list', output: '<span class="dim">Profiles:</span>\n  <span class="accent">→</span> default\n  <span class="accent">→</span> dev\n  <span class="accent">→</span> prod' },
+                { cmd: 'awscreds delete --profile old', output: '<span class="success">✓</span> Profile \'old\' deleted' }
+            ];
+
+            let currentCmd = 0;
+            const cmdEl = document.getElementById('typed-command');
+            const outputEl = document.getElementById('terminal-output');
+
+            function typeCommand() {
+                const { cmd, output } = commands[currentCmd];
+                cmdEl.textContent = '';
+                outputEl.style.opacity = '0';
+
+                let i = 0;
+                const typeInterval = setInterval(() => {
+                    if (i < cmd.length) {
+                        cmdEl.textContent += cmd[i];
+                        i++;
+                    } else {
+                        clearInterval(typeInterval);
+                        setTimeout(() => {
+                            outputEl.innerHTML = output;
+                            outputEl.style.opacity = '1';
+                            setTimeout(() => {
+                                currentCmd = (currentCmd + 1) % commands.length;
+                                typeCommand();
+                            }, 3000);
+                        }, 500);
+                    }
+                }, 50);
+            }
+
+            setTimeout(typeCommand, 1000);
+        });
+
+        // Copy to clipboard function
+        function copyCode(btn) {
+            const code = btn.nextElementSibling.textContent.replace(/\$ /g, '');
+            navigator.clipboard.writeText(code.trim());
+
+            btn.classList.add('copied');
+            setTimeout(() => btn.classList.remove('copied'), 2000);
+        }
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
