@@ -2,6 +2,8 @@
 
 A command-line utility to manage AWS credentials. Update, list, or delete profiles in your AWS credentials file efficiently.
 
+![Demo](docs/demo.gif)
+
 ## Installation
 
 ### Homebrew (macOS/Linux)

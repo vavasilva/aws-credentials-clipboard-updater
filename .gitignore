@@ -26,3 +26,5 @@ awscreds.egg-info/
 .python-version
 
 .serena/
+# VHS tape files
+*.tape
